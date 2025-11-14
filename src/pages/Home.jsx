@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../api";
+import api from "../../api";
 import SkeletonCard from "../components/SkeletonCard";
 import ChallengeCard from "../components/ChallengeCard";
 import TipCard from "../components/TipCard";

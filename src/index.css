@@ -2,71 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Google font import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root{
+  --brand-green:#0f9d58;
+  --brand-dark:#0b3b2e;
+  --muted:#6b7280;
+  --card-bg: #ffffff;
+  --glass: rgba(255,255,255,0.6);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* base */
+html,body,#root{height:100%}
+body{
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #f6fbf6 0%, #ffffff 100%);
+  color: #0f172a;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* nicer container used throughout */
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* subtle card */
+.card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(8,15,20,0.06);
+  overflow: hidden;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* primary button */
+.btn {
+  background: linear-gradient(90deg,var(--brand-green), #13b57a);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(15,157,88,0.12);
 }
+
+/* outline button */
+.btn-outline {
+  border: 1px solid rgba(15,157,88,0.12);
+  color: var(--brand-dark);
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  background: transparent;
+  font-weight:600;
+}
+
+/* small utility */
+.kicker { font-size:0.8rem; color:var(--muted); font-weight:600; letter-spacing:0.02em; }
+.overline { text-transform:uppercase; font-size:0.7rem; color:var(--muted); letter-spacing:0.12em; }

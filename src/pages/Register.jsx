@@ -4,7 +4,7 @@ import {
   updateProfile,
   signInWithPopup,
 } from "firebase/auth";
-import { auth, googleProvider } from "../firebase";
+import { auth, googleProvider } from "../../firebase";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
