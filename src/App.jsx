@@ -16,6 +16,7 @@ import EditChallenge from "./pages/EditChallenge";
 import CarbonDashboard from "./pages/CarbonDashboard";
 import ProgressTimeline from "./pages/ProgressTimeline";
 import ProgressDetail from "./pages/ProgressDetail";
+import Leaderboard from "./pages/Leaderboard";
 
 export default function App() {
   return (
@@ -29,6 +30,15 @@ export default function App() {
         <Route path="/my-activities" element={<ProtectedRoute><MyActivities /></ProtectedRoute>} />
         <Route path="/carbon" element={<ProtectedRoute><CarbonDashboard /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
+        <Route
+            path="/leaderboard"
+            element={
+              <ProtectedRoute>
+                <Leaderboard />
+              </ProtectedRoute>
+            }
+          />
+
         <Route path="/my-activities/:id" element={<ProgressDetail />} />
 
         <Route

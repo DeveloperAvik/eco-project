@@ -21,6 +21,8 @@ export default function Header() {
           <Link className="hover:text-neon transition" to="/challenges">Challenges</Link>
           {user && <Link className="hover:text-neon transition" to="/carbon">Carbon</Link>}
           {user && <Link className="hover:text-neon transition" to="/my-activities">My Activities</Link>}
+          {user && <Link className="hover:text-neon transition" to="/leaderboard">Leaderboard</Link>}
+          <Link className="hover:text-neon transition" to="/timeline">Timeline</Link>
         </nav>
 
         <div>
