@@ -1,37 +1,23 @@
+import GlassCard from "./GlassCard";
 import { Link } from "react-router-dom";
 
 export default function ChallengeCard({ c }) {
   return (
-    <div className="border rounded shadow-sm overflow-hidden">
+    <GlassCard>
       <img
-        src={c.imageUrl || `https://picsum.photos/seed/${c._id}/600/300`}
-        alt={c.title}
-        className="w-full h-40 object-cover"
+        src={c.imageUrl}
+        className="w-full h-40 object-cover rounded-lg mb-3"
       />
-
-      <div className="p-3">
-        <h3 className="font-bold">{c.title}</h3>
-        <p className="text-xs text-gray-600">{c.category}</p>
-
-        <p className="text-sm mt-2">
-          {c.description?.length > 80
-            ? c.description.slice(0, 80) + "..."
-            : c.description}
-        </p>
-
-        <div className="flex justify-between items-center mt-3">
-          <span className="text-xs text-gray-500">
-            {c.participants} participants
-          </span>
-
-          <Link
-            to={`/challenges/${c._id}`}
-            className="text-green-600 text-sm"
-          >
-            View →
-          </Link>
-        </div>
-      </div>
-    </div>
+      <h2 className="text-xl font-semibold text-neon">{c.title}</h2>
+      <p className="text-gray-300 text-sm">{c.category}</p>
+      <p className="mt-2 text-gray-400 text-sm">{c.description.slice(0, 80)}...</p>
+      
+      <Link
+        to={`/challenges/${c._id}`}
+        className="mt-4 inline-block px-4 py-2 bg-neon text-black rounded hover:shadow-neon transition"
+      >
+        View
+      </Link>
+    </GlassCard>
   );
 }

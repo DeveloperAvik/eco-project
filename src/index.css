@@ -2,65 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Google font import */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-
-:root{
-  --brand-green:#0f9d58;
-  --brand-dark:#0b3b2e;
-  --muted:#6b7280;
-  --card-bg: #ffffff;
-  --glass: rgba(255,255,255,0.6);
-}
-
-/* base */
-html,body,#root{height:100%}
-body{
-  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: linear-gradient(180deg, #f6fbf6 0%, #ffffff 100%);
-  color: #0f172a;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.45;
-}
-
-/* nicer container used throughout */
-.container {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-/* subtle card */
-.card {
-  background: var(--card-bg);
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(8,15,20,0.06);
-  overflow: hidden;
-}
-
-/* primary button */
-.btn {
-  background: linear-gradient(90deg,var(--brand-green), #13b57a);
+/* Futuristic Background */
+body {
+  background: radial-gradient(circle at top, #0a0f1f, #000000);
   color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(15,157,88,0.12);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
 }
 
-/* outline button */
-.btn-outline {
-  border: 1px solid rgba(15,157,88,0.12);
-  color: var(--brand-dark);
-  padding: 0.55rem 0.9rem;
-  border-radius: 10px;
-  background: transparent;
-  font-weight:600;
+
+.text-neon {
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffaa;
 }
 
-/* small utility */
-.kicker { font-size:0.8rem; color:var(--muted); font-weight:600; letter-spacing:0.02em; }
-.overline { text-transform:uppercase; font-size:0.7rem; color:var(--muted); letter-spacing:0.12em; }
+.glass-holo {
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 255, 204, 0.25);
+  backdrop-filter: blur(14px);
+}
+.particle-bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #0b1120, #020617 60%, #000000);
+  opacity: 0.35;
+  z-index: -10;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+
+@keyframes shine {
+  0% { transform: translateX(-100%); opacity: 0.1; }
+  50% { opacity: 0.4; }
+  100% { transform: translateX(200%); opacity: 0; }
+}
+
+.animate-shine {
+  animation: shine 1s ease-out forwards;
+}

@@ -13,6 +13,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import EditChallenge from "./pages/EditChallenge";
+import CarbonDashboard from "./pages/CarbonDashboard";
+import ProgressTimeline from "./pages/ProgressTimeline";
+import ProgressDetail from "./pages/ProgressDetail";
 
 export default function App() {
   return (
@@ -24,7 +27,17 @@ export default function App() {
         <Route path="/challenges/:id" element={<ChallengeDetail />} />
         <Route path="/challenges/add" element={<ProtectedRoute><AddChallenge /></ProtectedRoute>} />
         <Route path="/my-activities" element={<ProtectedRoute><MyActivities /></ProtectedRoute>} />
+        <Route path="/carbon" element={<ProtectedRoute><CarbonDashboard /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/my-activities/:id" element={<ProgressDetail />} />
+
+        <Route
+            path="/timeline"
+            element={
+              <ProtectedRoute><ProgressTimeline /></ProtectedRoute>
+            }
+          />
+
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
@@ -33,6 +46,7 @@ export default function App() {
         <ProtectedRoute>
           <EditChallenge />
         </ProtectedRoute>
+        
   }
 />
 
