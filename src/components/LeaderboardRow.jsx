@@ -5,6 +5,9 @@ export default function LeaderboardRow({ rank, user }) {
 
   const medal = isTop1 ? "🥇" : isTop2 ? "🥈" : isTop3 ? "🥉" : "🏅";
 
+  // Extract username from email
+    const displayName = user.userId || user._id;
+
   return (
     <div
       className={`
@@ -16,13 +19,13 @@ export default function LeaderboardRow({ rank, user }) {
       style={{ animationDelay: `${rank * 0.05}s` }}
     >
       <div className="flex items-center gap-3">
-        <div className="text-2xl">
-          {medal}
-        </div>
+        <div className="text-2xl">{medal}</div>
+
         <div>
           <p className="text-sm text-gray-400">#{rank}</p>
+
           <p className="text-lg font-semibold text-green-300">
-            {user.userId || "Unknown User"}
+            {displayName}
           </p>
         </div>
       </div>
@@ -32,10 +35,12 @@ export default function LeaderboardRow({ rank, user }) {
           <p className="font-semibold text-neon">{user.totalXP} XP</p>
           <p className="text-gray-400 text-xs">Total XP</p>
         </div>
+
         <div className="text-right">
           <p className="font-semibold">{user.maxStreak} 🔥</p>
           <p className="text-gray-400 text-xs">Best Streak</p>
         </div>
+
         <div className="text-right">
           <p className="font-semibold">{user.challengesCount}</p>
           <p className="text-gray-400 text-xs">Challenges</p>

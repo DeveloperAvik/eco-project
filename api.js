@@ -10,8 +10,10 @@ api.interceptors.request.use((config) => {
   if (user) {
     config.headers["x-user-id"] = user.uid;
     config.headers["x-user-email"] = user.email;
+    config.headers["x-user-name"] = user.displayName || "";
   }
   return config;
 });
+
 
 export default api;
