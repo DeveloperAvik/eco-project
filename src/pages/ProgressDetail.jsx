@@ -41,6 +41,7 @@ export default function ProgressDetail() {
 
     if (res.data.levelUp) setLevelUp(true);
 
+    // Update tasks + progress stats
     setTasks((prev) =>
       prev.map((t) => (t._id === taskId ? { ...t, completed: true } : t))
     );
@@ -53,26 +54,41 @@ export default function ProgressDetail() {
     }));
   }
 
-  if (!challenge || !userChallenge) return <p className="p-10">Loading...</p>;
+  if (!challenge || !userChallenge)
+    return (
+      <p className="p-10 text-gray-300 animate-pulse text-center">
+        Loading progress...
+      </p>
+    );
 
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-8 animate-fadeIn">
+    <div className="max-w-3xl mx-auto p-6 space-y-10 animate-fadeIn">
 
+      {/* Level Up Popup */}
       {levelUp && <LevelUpModal onClose={() => setLevelUp(false)} />}
 
-      <h1 className="text-3xl font-bold text-green-400 drop-shadow-glow">
+      {/* Page Title */}
+      <h1 className="text-3xl sm:text-4xl font-bold text-green-400 drop-shadow-[0_0_12px_#22c55e]">
         {challenge.title} — Progress Tracker
       </h1>
 
-      <GlassCard>
-        <img
-          src={challenge.imageUrl}
-          className="w-full h-56 rounded-lg object-cover"
-          alt=""
-        />
+      {/* Challenge Overview Card */}
+      <GlassCard className="p-5 sm:p-7">
 
-        <p className="text-gray-300 mt-4">{challenge.description}</p>
+        {/* Hero Image */}
+        <div className="rounded-xl overflow-hidden shadow-md">
+          <img
+            src={challenge.imageUrl}
+            className="w-full h-52 sm:h-60 object-cover"
+            alt=""
+          />
+        </div>
 
+        <p className="text-gray-300 mt-4 text-sm sm:text-base leading-relaxed">
+          {challenge.description}
+        </p>
+
+        {/* Progress Section */}
         <ProgressBar
           progress={userChallenge.progress}
           xp={userChallenge.xp}
@@ -80,9 +96,13 @@ export default function ProgressDetail() {
         />
       </GlassCard>
 
-      <h2 className="text-xl text-green-300">Your Tasks</h2>
+      {/* Tasks Header */}
+      <h2 className="text-xl sm:text-2xl font-semibold text-green-300">
+        Your Tasks
+      </h2>
 
-      <div className="space-y-4">
+      {/* Task List */}
+      <div className="space-y-5">
         {tasks.map((t) => (
           <TaskItem key={t._id} task={t} onComplete={handleComplete} />
         ))}

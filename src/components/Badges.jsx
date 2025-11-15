@@ -9,21 +9,31 @@ export default function Badges({ total }) {
   ];
 
   return (
-    <GlassCard>
-      <h3 className="text-xl text-neon mb-3">🏅 Achievements</h3>
-      <p className="text-xs text-gray-400 mb-3">
+    <GlassCard className="p-4 sm:p-6 md:p-8">
+      <h3 className="text-lg sm:text-xl md:text-2xl text-neon mb-2">
+        🏅 Achievements
+      </h3>
+
+      <p className="text-[11px] sm:text-xs text-gray-400 mb-4 leading-relaxed">
         Badges unlock as your daily carbon stays under key thresholds.
       </p>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="
+        grid 
+        grid-cols-2 
+        sm:grid-cols-3 
+        md:grid-cols-4 
+        gap-3 
+        sm:gap-4
+      ">
         {badges.map((b, i) => {
           const unlocked = total <= b.limit || b.limit === 0;
           return (
             <div
               key={i}
               className={`
-                p-3 rounded-lg text-center border
-                transition-all duration-300
+                p-3 sm:p-4 rounded-lg text-center border
+                transition-all duration-300 select-none
                 ${
                   unlocked
                     ? "border-green-400/60 bg-green-500/15 text-green-200 shadow-[0_0_12px_rgba(34,197,94,0.6)]"
@@ -31,10 +41,17 @@ export default function Badges({ total }) {
                 }
               `}
             >
-              <div className="text-3xl mb-1">{b.icon}</div>
-              <p className="text-sm font-semibold">{b.name}</p>
-              <p className="text-[11px] text-gray-400 mt-1">
-                {unlocked ? "Unlocked" : `Keep optimizing to unlock`}
+              <div className="text-2xl sm:text-3xl mb-1">{b.icon}</div>
+
+              <p className="text-xs sm:text-sm font-semibold">{b.name}</p>
+
+              <p className="
+                text-[10px] 
+                sm:text-[11px] 
+                text-gray-400 
+                mt-1
+              ">
+                {unlocked ? "Unlocked" : "Keep optimizing to unlock"}
               </p>
             </div>
           );

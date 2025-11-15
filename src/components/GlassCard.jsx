@@ -2,13 +2,26 @@ export default function GlassCard({ children, className = "" }) {
   return (
     <div
       className={`
-        glass-holo 
-        rounded-xl 
-        p-5 
-        border border-green-400/30 
-        shadow-[0_0_20px_rgba(0,255,156,0.25)] 
-        hover:shadow-[0_0_28px_rgba(0,255,156,0.5)]
-        transition-all duration-300
+        relative
+        rounded-2xl
+        p-5 sm:p-6
+        border border-green-300/25
+        bg-white/5
+        backdrop-blur-xl
+
+        /* Glow + depth */
+        shadow-[0_0_18px_rgba(0,255,156,0.15)]
+        hover:shadow-[0_0_30px_rgba(0,255,156,0.5)]
+        hover:-translate-y-1
+
+        /* Glow border animation */
+        before:absolute
+        before:inset-0
+        before:rounded-2xl
+        before:bg-gradient-to-br before:from-green-400/20 before:to-transparent
+        before:pointer-events-none
+
+        transition-all duration-300 ease-out
         ${className}
       `}
     >

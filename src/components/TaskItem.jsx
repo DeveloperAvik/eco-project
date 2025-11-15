@@ -10,34 +10,53 @@ export default function TaskItem({ task, onComplete }) {
     setAnim(true);
 
     const res = await onComplete(task._id);
-
     setXpGain(res?.xpGain);
 
-    setTimeout(() => setXpGain(null), 1800);
+    setTimeout(() => {
+      setXpGain(null);
+      setAnim(false);
+    }, 1800);
   }
 
   return (
-    <GlassCard className="relative overflow-hidden">
-
+    <GlassCard className="relative overflow-hidden p-4 sm:p-5">
+      
+      {/* XP Float Animation */}
       {xpGain && <FloatingXP xp={xpGain} />}
 
+      {/* Main Row */}
       <div
-        className={`flex justify-between items-center transition-all 
-        ${anim ? "scale-[1.03] brightness-125 saturate-150" : ""}`}
+        className={`
+          flex flex-col sm:flex-row 
+          justify-between sm:items-center 
+          gap-3 sm:gap-0
+          transition-all duration-300
+          ${anim ? "scale-[1.03] brightness-125 saturate-150" : ""}
+        `}
       >
-        <div>
-          <h3 className="text-xl text-green-300">{task.title}</h3>
-          <p className="text-gray-400 text-sm">{task.description}</p>
+        {/* Task Info */}
+        <div className="max-w-[80%]">
+          <h3 className="text-lg sm:text-xl font-semibold text-green-300">
+            {task.title}
+          </h3>
+
+          <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
+            {task.description}
+          </p>
         </div>
 
+        {/* Button */}
         <button
           onClick={handleComplete}
           disabled={task.completed}
           className={`
-            px-4 py-2 rounded-lg font-semibold 
-            ${task.completed
-              ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-600 text-black shadow-[0_0_12px_#22c55e]"
+            px-3 py-1.5 sm:px-4 sm:py-2
+            rounded-lg font-semibold text-sm sm:text-base
+            transition-all duration-300
+            ${
+              task.completed
+                ? "bg-gray-600/50 text-gray-300 cursor-not-allowed"
+                : "bg-green-500 text-black hover:bg-green-600 shadow-[0_0_12px_#22c55e]"
             }
           `}
         >
@@ -45,8 +64,16 @@ export default function TaskItem({ task, onComplete }) {
         </button>
       </div>
 
+      {/* Animated Shine Overlay */}
       {anim && (
-        <div className="absolute inset-0 pointer-events-none animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        <div
+          className="
+          absolute inset-0 pointer-events-none 
+          animate-shine 
+          bg-gradient-to-r 
+          from-transparent via-white/15 to-transparent
+          "
+        />
       )}
     </GlassCard>
   );

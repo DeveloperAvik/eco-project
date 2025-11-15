@@ -15,6 +15,7 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
+  ResponsiveContainer,
 } from "recharts";
 
 export default function CarbonDashboard() {
@@ -34,87 +35,102 @@ export default function CarbonDashboard() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-10">
+    <div className="max-w-6xl mx-auto p-6 space-y-12 relative">
 
       {/* Particle Background */}
-      <div className="particle-bg"></div>
+      <div className="particle-bg pointer-events-none"></div>
 
       {/* Today's Output */}
-      <GlassCard>
-        <h2 className="text-3xl font-bold text-neon">Today's Carbon Output</h2>
+      <GlassCard className="p-6 sm:p-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-neon mb-3">
+          Today's Carbon Output
+        </h2>
 
-        <p className="mt-4 text-5xl text-green-400 drop-shadow-[0_0_10px_#00ff9c]">
+        <p className="text-4xl sm:text-5xl text-green-400 drop-shadow-[0_0_12px_#00ff9c] font-semibold">
           {today} g CO₂
         </p>
 
-        <p className="mt-2 text-sm text-gray-300">
-          Estimated total carbon emitted today from your digital activity.
+        <p className="mt-3 text-xs sm:text-sm text-gray-300">
+          Estimated digital carbon emission for today.
         </p>
       </GlassCard>
 
-      {/* Carbon Savings + Badges */}
+      {/* Carbon Saver + Badges */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <CarbonSaver today={today} />
         <Badges total={today} />
       </div>
 
-      {/* Charts */}
+      {/* Charts Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        {/* Animated PieChart */}
+
+        {/* Responsive PieChart */}
         <GlassCard>
-          <h3 className="text-xl text-neon mb-3">Category Breakdown</h3>
-          <PieChart width={350} height={300}>
-            <Pie
-              data={stats}
-              dataKey="value"
-              nameKey="name"
-              fill="#00ff9c"
-              label
-              isAnimationActive={true}
-              animationBegin={200}
-              animationDuration={1500}
-              outerRadius={110}
-              stroke="#00ff9c"
-              strokeWidth={2}
-            />
-            <Tooltip
-              contentStyle={{
-                background: "rgba(10, 15, 31, 0.8)",
-                backdropFilter: "blur(6px)",
-                border: "1px solid #00ff9c",
-                color: "#f9fafb",
-                boxShadow: "0 0 12px #00ff9c",
-              }}
-            />
-          </PieChart>
+          <h3 className="text-lg sm:text-xl text-neon mb-3">
+            Category Breakdown
+          </h3>
+
+          <div className="w-full h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={stats}
+                  dataKey="value"
+                  nameKey="name"
+                  fill="#00ff9c"
+                  label
+                  isAnimationActive
+                  animationBegin={200}
+                  animationDuration={1500}
+                  outerRadius="70%"
+                  stroke="#00ff9c"
+                  strokeWidth={2}
+                />
+                <Tooltip
+                  contentStyle={{
+                    background: "rgba(10, 15, 31, 0.85)",
+                    backdropFilter: "blur(6px)",
+                    border: "1px solid #00ff9c",
+                    color: "#fff",
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </GlassCard>
 
-        {/* Animated LineChart */}
+        {/* Responsive LineChart */}
         <GlassCard>
-          <h3 className="text-xl text-neon mb-3">Weekly Trend</h3>
-          <LineChart width={350} height={300} data={stats}>
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke="#00ff9c"
-              strokeWidth={3}
-              isAnimationActive={true}
-              animationDuration={1600}
-              dot={{ r: 6, fill: "#00ff9c", stroke: "#00ff9c" }}
-              activeDot={{ r: 10, strokeWidth: 2, stroke: "#00ffaa" }}
-            />
-            <CartesianGrid stroke="#1f2937" opacity={0.3} />
-            <XAxis dataKey="name" stroke="#d1d5db" />
-            <YAxis stroke="#d1d5db" />
-            <Tooltip
-              contentStyle={{
-                background: "rgba(10, 15, 31, 0.8)",
-                border: "1px solid #00ff9c",
-                boxShadow: "0 0 12px #00ff9c",
-              }}
-            />
-          </LineChart>
+          <h3 className="text-lg sm:text-xl text-neon mb-3">
+            Weekly Trend
+          </h3>
+
+          <div className="w-full h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={stats}>
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#00ff9c"
+                  strokeWidth={3}
+                  isAnimationActive
+                  animationDuration={1600}
+                  dot={{ r: 6, fill: "#00ff9c", stroke: "#00ff9c" }}
+                  activeDot={{ r: 10, strokeWidth: 2, stroke: "#00ffaa" }}
+                />
+                <CartesianGrid stroke="#1f2937" opacity={0.3} />
+                <XAxis dataKey="name" stroke="#e5e7eb" />
+                <YAxis stroke="#e5e7eb" />
+                <Tooltip
+                  contentStyle={{
+                    background: "rgba(10, 15, 31, 0.85)",
+                    border: "1px solid #00ff9c",
+                    color: "#fff",
+                  }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </GlassCard>
 
       </div>
@@ -124,6 +140,7 @@ export default function CarbonDashboard() {
         <AICarbonPredictor />
         <GlobeVisualizer />
       </div>
+
     </div>
   );
 }

@@ -16,25 +16,42 @@ export default function Leaderboard() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="max-w-4xl mx-auto p-6 animate-fadeIn space-y-8">
 
-      <h1 className="text-3xl font-bold text-neon drop-shadow-glow mb-2">
-        🌍 EcoPulse Leaderboard
-      </h1>
-      <p className="text-gray-300 mb-4">
-        See who is leading the carbon-aware future. Rankings are based on total XP
-        earned across all challenges.
-      </p>
+      {/* Header Section */}
+      <div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-neon drop-shadow-[0_0_12px_#00ff9c]">
+          🌍 EcoPulse Leaderboard
+        </h1>
 
-      <GlassCard>
-        {!rows && <p className="text-gray-400 animate-pulse">Loading leaderboard...</p>}
+        <div className="w-32 h-1 bg-neon rounded-full mt-2 animate-pulse"></div>
 
-        {rows && rows.length === 0 && (
-          <p className="text-gray-400">No leaderboard data yet. Start completing tasks!</p>
+        <p className="text-gray-300 mt-3 text-sm sm:text-base leading-relaxed">
+          See who is leading the carbon-aware future. Rankings are based on 
+          total XP earned across all completed challenges and activities.
+        </p>
+      </div>
+
+      {/* Leaderboard Container */}
+      <GlassCard className="p-6 sm:p-8">
+
+        {/* Loading */}
+        {!rows && (
+          <p className="text-gray-400 text-sm animate-pulse">
+            Loading leaderboard...
+          </p>
         )}
 
+        {/* Empty */}
+        {rows && rows.length === 0 && (
+          <p className="text-gray-400 text-sm">
+            No leaderboard data yet — start completing eco challenges!
+          </p>
+        )}
+
+        {/* Data */}
         {rows && rows.length > 0 && (
-          <div className="mt-2">
+          <div className="mt-4 space-y-3">
             {rows.map((user, idx) => (
               <LeaderboardRow
                 key={user.userId}

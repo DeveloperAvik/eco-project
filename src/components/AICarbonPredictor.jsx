@@ -60,7 +60,7 @@ export default function AICarbonPredictor() {
   if (loading) {
     return (
       <GlassCard>
-        <p className="text-gray-300 animate-pulse">
+        <p className="text-gray-300 animate-pulse text-sm sm:text-base">
           Calculating AI-based projection...
         </p>
       </GlassCard>
@@ -68,16 +68,21 @@ export default function AICarbonPredictor() {
   }
 
   return (
-    <GlassCard>
-      <h3 className="text-xl text-neon mb-2">🤖 AI Carbon Predictor</h3>
-      <p className="text-sm text-gray-300 mb-3">
+    <GlassCard className="p-4 sm:p-6 md:p-8">
+      <h3 className="text-lg sm:text-xl md:text-2xl text-neon mb-2">
+        🤖 AI Carbon Predictor
+      </h3>
+
+      <p className="text-xs sm:text-sm text-gray-300 mb-3 leading-relaxed">
         Using your recent activity to estimate your upcoming digital carbon footprint.
       </p>
 
-      <p className="text-gray-100 text-sm leading-relaxed">{insight}</p>
+      <p className="text-sm sm:text-base text-gray-100 leading-relaxed">
+        {insight}
+      </p>
 
-      <div className="mt-4 text-xs text-gray-500">
-        <span className="italic">
+      <div className="mt-4">
+        <span className="text-[10px] sm:text-xs text-gray-500 italic block">
           *This projection is heuristic-based for demo purposes (not a trained ML model).
         </span>
       </div>
