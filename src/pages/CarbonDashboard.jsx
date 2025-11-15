@@ -57,7 +57,8 @@ export default function CarbonDashboard() {
       {/* Particle Background */}
       <div className="particle-bg pointer-events-none"></div>
 
-      {/* Today's Output */}
+
+       {/* Today's Output */}
       <GlassCard className="p-6 sm:p-8">
         <h2 className="text-2xl sm:text-3xl font-bold text-neon mb-3">
           Today's Carbon Output
@@ -71,12 +72,14 @@ export default function CarbonDashboard() {
           Estimated digital carbon emission for today.
         </p>
       </GlassCard>
+     
 
-      {/* Carbon Saver + Badges */}
+      {/* AI Predictor + 3D Globe */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <CarbonSaver today={today} average={averageCarbon} />
-        <Badges total={today} />
+        <AICarbonPredictor />
+        <GlobeVisualizer />
       </div>
+
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -121,12 +124,15 @@ export default function CarbonDashboard() {
 
       </div>
 
-      {/* AI Predictor + 3D Globe */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <AICarbonPredictor />
-        <GlobeVisualizer />
-      </div>
 
+
+
+      {/* Carbon Saver + Badges */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <CarbonSaver today={today} average={averageCarbon} />
+        <Badges total={today} />
+      </div>
+      
     </div>
   );
 }
