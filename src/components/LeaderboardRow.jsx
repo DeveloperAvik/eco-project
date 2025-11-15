@@ -5,8 +5,7 @@ export default function LeaderboardRow({ rank, user }) {
 
   const medal = isTop1 ? "🥇" : isTop2 ? "🥈" : isTop3 ? "🥉" : "🏅";
 
-  // Extract username from email
-    const displayName = user.userId || user._id;
+  const displayName = user.userId || user._id;
 
   return (
     <div
