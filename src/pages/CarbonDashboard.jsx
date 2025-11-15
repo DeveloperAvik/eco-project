@@ -10,17 +10,16 @@ import {
   PieChart,
   Pie,
   Tooltip,
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
+
+const COLORS = ['#00FF8C', '#22C55E', '#84CC16', '#DCF836', '#FACC15', '#FB923C', '#F87171'];
 
 export default function CarbonDashboard() {
   const [today, setToday] = useState(0);
-  const [stats, setStats] = useState([]);
+  const [categoryStats, setCategoryStats] = useState([]);
+  const [averageCarbon, setAverageCarbon] = useState(0);
 
   useEffect(() => {
     load();
@@ -30,8 +29,26 @@ export default function CarbonDashboard() {
     const t = await api.get("/carbon/today");
     setToday(t.data.total);
 
-    const s = await api.get("/carbon/stats");
-    setStats(s.data.map((x) => ({ name: x._id, value: x.total })));
+    const userChallenges = await api.get("/user-challenges");
+    const challenges = await api.get("/challenges");
+
+    const categoryCounts = userChallenges.data.reduce((acc, uc) => {
+      const challenge = challenges.data.find(c => c._id === uc.challengeId);
+      if (challenge) {
+        acc[challenge.category] = (acc[challenge.category] || 0) + 1;
+      }
+      return acc;
+    }, {});
+
+    const categoryData = Object.keys(categoryCounts).map(key => ({
+      name: key,
+      value: categoryCounts[key]
+    }));
+
+    setCategoryStats(categoryData);
+
+    const avg = await api.get("/carbon/average");
+    setAverageCarbon(avg.data.average);
   }
 
   return (
@@ -57,7 +74,7 @@ export default function CarbonDashboard() {
 
       {/* Carbon Saver + Badges */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <CarbonSaver today={today} />
+        <CarbonSaver today={today} average={averageCarbon} />
         <Badges total={today} />
       </div>
 
@@ -74,10 +91,9 @@ export default function CarbonDashboard() {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={stats}
+                  data={categoryStats}
                   dataKey="value"
                   nameKey="name"
-                  fill="#00ff9c"
                   label
                   isAnimationActive
                   animationBegin={200}
@@ -85,7 +101,11 @@ export default function CarbonDashboard() {
                   outerRadius="70%"
                   stroke="#00ff9c"
                   strokeWidth={2}
-                />
+                >
+                  {
+                    categoryStats.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                  }
+                </Pie>
                 <Tooltip
                   contentStyle={{
                     background: "rgba(10, 15, 31, 0.85)",
@@ -95,40 +115,6 @@ export default function CarbonDashboard() {
                   }}
                 />
               </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </GlassCard>
-
-        {/* Responsive LineChart */}
-        <GlassCard>
-          <h3 className="text-lg sm:text-xl text-neon mb-3">
-            Weekly Trend
-          </h3>
-
-          <div className="w-full h-72">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={stats}>
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#00ff9c"
-                  strokeWidth={3}
-                  isAnimationActive
-                  animationDuration={1600}
-                  dot={{ r: 6, fill: "#00ff9c", stroke: "#00ff9c" }}
-                  activeDot={{ r: 10, strokeWidth: 2, stroke: "#00ffaa" }}
-                />
-                <CartesianGrid stroke="#1f2937" opacity={0.3} />
-                <XAxis dataKey="name" stroke="#e5e7eb" />
-                <YAxis stroke="#e5e7eb" />
-                <Tooltip
-                  contentStyle={{
-                    background: "rgba(10, 15, 31, 0.85)",
-                    border: "1px solid #00ff9c",
-                    color: "#fff",
-                  }}
-                />
-              </LineChart>
             </ResponsiveContainer>
           </div>
         </GlassCard>

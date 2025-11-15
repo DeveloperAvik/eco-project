@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import GlassCard from "./GlassCard";
 
-export default function CarbonSaver({ today }) {
+export default function CarbonSaver({ today, average }) {
   const [saved, setSaved] = useState(0);
 
   useEffect(() => {
-    const baseline = 200;
-    const target = Math.max(0, baseline - today);
+    const target = Math.max(0, average - today);
     let current = 0;
 
     const interval = setInterval(() => {
@@ -16,7 +15,7 @@ export default function CarbonSaver({ today }) {
     }, 12);
 
     return () => clearInterval(interval);
-  }, [today]);
+  }, [today, average]);
 
   return (
     <GlassCard className="p-4 sm:p-6 md:p-8">
@@ -43,7 +42,7 @@ export default function CarbonSaver({ today }) {
         sm:mt-2 
         leading-relaxed
       ">
-        Approximate CO₂ saved today compared to an average baseline user.
+        Approximate CO₂ saved today compared to your average daily output.
       </p>
     </GlassCard>
   );

@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import GlassCard from "./GlassCard";
 
 export default function Badges({ total }) {
+  const [currentBadge, setCurrentBadge] = useState(null);
+
   const badges = [
     { name: "Eco Newbie", limit: 0, icon: "🌱" },
     { name: "Carbon Cutter", limit: 200, icon: "⚡" },
@@ -8,11 +11,33 @@ export default function Badges({ total }) {
     { name: "Zero Hero", limit: 800, icon: "💠" },
   ];
 
+  useEffect(() => {
+    // Determine the highest badge unlocked
+    const unlockedBadges = badges.filter((b) => total <= b.limit || b.limit === 0);
+    if (unlockedBadges.length > 0) {
+      // Find the badge with the highest limit (most challenging unlocked)
+      const highestUnlockedBadge = unlockedBadges.reduce((prev, current) => {
+        return (prev.limit > current.limit) ? prev : current;
+      });
+      setCurrentBadge(highestUnlockedBadge);
+    } else {
+      setCurrentBadge(null);
+    }
+  }, [total]);
+
   return (
     <GlassCard className="p-4 sm:p-6 md:p-8">
       <h3 className="text-lg sm:text-xl md:text-2xl text-neon mb-2">
         🏅 Achievements
       </h3>
+
+      {currentBadge && (
+        <div className="text-center mb-6">
+          <p className="text-sm text-gray-300">Your Current Badge:</p>
+          <div className="text-5xl my-2 animate-bounce">{currentBadge.icon}</div>
+          <p className="text-xl font-bold text-green-300">{currentBadge.name}</p>
+        </div>
+      )}
 
       <p className="text-[11px] sm:text-xs text-gray-400 mb-4 leading-relaxed">
         Badges unlock as your daily carbon stays under key thresholds.
