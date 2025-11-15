@@ -106,14 +106,14 @@ export default function CarbonDashboard() {
                     categoryStats.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                   }
                 </Pie>
-                <Tooltip
-                  contentStyle={{
-                    background: "rgba(10, 15, 31, 0.85)",
-                    backdropFilter: "blur(6px)",
-                    border: "1px solid #00ff9c",
-                    color: "#fff",
-                  }}
-                />
+                  <Tooltip
+                    contentStyle={{
+                      background: "rgba(0, 0, 0, 0.2)", 
+                      backdropFilter: "blur(6px)",
+                      border: "1px solid #00ff9c",
+                      color: "#000", 
+                    }}
+                  />
               </PieChart>
             </ResponsiveContainer>
           </div>
